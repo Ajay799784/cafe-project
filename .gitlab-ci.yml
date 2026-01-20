@@ -22,6 +22,8 @@ variables:
 install_dependencies:
   stage: install
   image: node:${NODE_VERSION}
+  tags:
+    - self-hosted
   script:
     - npm ci --cache .npm --prefer-offline
   artifacts:
@@ -37,6 +39,8 @@ install_dependencies:
 test:
   stage: test
   image: node:${NODE_VERSION}
+  tags:
+    - self-hosted
   dependencies:
     - install_dependencies
   script:
@@ -57,6 +61,8 @@ test:
 build:
   stage: build
   image: node:${NODE_VERSION}
+  tags:
+    - self-hosted
   dependencies:
     - install_dependencies
   script:
@@ -74,6 +80,8 @@ build:
 deploy_staging:
   stage: deploy
   image: node:${NODE_VERSION}
+  tags:
+    - self-hosted
   dependencies:
     - build
   script:
@@ -97,6 +105,8 @@ deploy_staging:
 deploy_production:
   stage: deploy
   image: node:${NODE_VERSION}
+  tags:
+    - self-hosted
   dependencies:
     - build
   script:
@@ -124,6 +134,8 @@ deploy_production:
 lint:
   stage: test
   image: node:${NODE_VERSION}
+  tags:
+    - self-hosted
   dependencies:
     - install_dependencies
   script:
